@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pdf-astradb-config
+  labels:
+    app: pdf-astradb
+    component: gui
+data:
+  # Streamlit configuration
+  streamlit-config.toml: |
+    [server]
+    port = 8080
+    address = "0.0.0.0"
+    headless = true
+    enableCORS = false
+    enableXsrfProtection = true
+    maxUploadSize = 200
+    
+    [browser]
+    gatherUsageStats = false
+    serverAddress = "0.0.0.0"
+    
+    [theme]
+    primaryColor = "#FF4B4B"
+    backgroundColor = "#FFFFFF"
+    secondaryBackgroundColor = "#F0F2F6"
+    textColor = "#262730"
+    font = "sans serif"
+  
+  # Application settings
+  app-settings.json: |
+    {
+      "collection_name": "langchain_docling_gui",
+      "embedding_model": "text-embedding-ada-002",
+      "chat_model": "gpt-3.5-turbo-16k",
+      "temperature": 0,
+      "max_documents": 100,
+      "chunk_size": 1000
+    }
+
+# Made with Bob

@@ -1,0 +1,25 @@
+# Core dependencies
+python-dotenv>=1.0.0
+
+# Docling for PDF processing
+docling>=1.0.0
+
+# LangChain and related packages
+langchain>=0.1.0
+langchain-core>=0.1.0
+langchain-community>=0.0.20
+langchain-astradb>=0.3.0
+langchain-openai>=0.0.5
+
+# AstraDB
+astrapy>=1.0.0
+
+# OpenAI
+openai>=1.0.0
+
+# Streamlit for GUI
+streamlit>=1.30.0
+
+# Additional utilities
+requests>=2.31.0
+pathlib>=1.0.1

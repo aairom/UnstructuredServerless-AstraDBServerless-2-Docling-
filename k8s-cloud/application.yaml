@@ -1,0 +1,89 @@
+apiVersion: codeengine.cloud.ibm.com/v1beta1
+kind: Application
+metadata:
+  name: pdf-astradb-gui
+  labels:
+    app: pdf-astradb
+    component: gui
+    version: v1
+spec:
+  # Image configuration
+  imageReference: ${CONTAINER_REGISTRY}/pdf-astradb-gui:latest
+  imagePullPolicy: Always
+  
+  # Resource allocation
+  resources:
+    requests:
+      cpu: "0.5"
+      memory: "1Gi"
+      ephemeral-storage: "2Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+      ephemeral-storage: "4Gi"
+  
+  # Scaling configuration
+  scale:
+    minScale: 0  # Scale to zero when idle
+    maxScale: 10
+    concurrency: 100
+    concurrencyTarget: 80
+  
+  # Port configuration
+  port: 8080
+  
+  # Environment variables
+  env:
+    - name: PORT
+      value: "8080"
+    - name: PYTHONUNBUFFERED
+      value: "1"
+    - name: API_ENDPOINT
+      valueFrom:
+        secretKeyRef:
+          name: astradb-credentials
+          key: api-endpoint
+    - name: APPLICATION_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: astradb-credentials
+          key: application-token
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openai-credentials
+          key: api-key
+  
+  # Probes
+  livenessProbe:
+    httpGet:
+      path: /_stcore/health
+      port: 8080
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  
+  readinessProbe:
+    httpGet:
+      path: /_stcore/health
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+  
+  # Volume mounts (if needed for persistent storage)
+  volumeMounts:
+    - name: input-storage
+      mountPath: /app/input
+    - name: output-storage
+      mountPath: /app/output
+  
+  volumes:
+    - name: input-storage
+      emptyDir: {}
+    - name: output-storage
+      emptyDir: {}
+
+# Made with Bob

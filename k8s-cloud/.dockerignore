@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+myvenv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+Docs/
+*.md
+
+# Source archives
+_sources/
+
+# Logs
+logs/
+*.log
+
+# Output files
+output/
+*.pdf
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scripts
+scripts/
+commands.sh
+myvenv.sh
+
+# Old applications
+app.py
+app_complete.py
+astra.py
+app_console_docling.py
+
+# Project files
+project-requirement.md
+QUICKSTART.md
